@@ -6,9 +6,25 @@
   </head>
   <body>
     <script>
-      var turnChoices = ["Rock", "Paper", "Scissors"]
+      var turnChoices = ["rock", "paper", "scissors"]
 
-      console.log(computerTurn())
+      const playerSelection = prompt("Please choose either Rock, Paper or Scissors.")
+      console.log(playRound(playerSelection, computerTurn()))
+
+      function playRound(playerSelection, computerSelection){
+        playerSelection = playerSelection.toLowerCase()
+        if(playerSelection === computerSelection)
+          return "It's a draw!"
+
+        switch(playerSelection){
+          case turnChoices[0]:
+            return computerSelection === turnChoices[1] ? "You lose! Paper beats Rock." : "You win! Rock beats scissors."
+          break;
+          default:
+
+        }
+
+      }
 
       function computerTurn(){
         return turnChoices[randomIndex()]
