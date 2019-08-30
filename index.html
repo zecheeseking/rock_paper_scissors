@@ -20,8 +20,14 @@
           case turnChoices[0]:
             return computerSelection === turnChoices[1] ? "You lose! Paper beats Rock." : "You win! Rock beats scissors."
           break;
+          case turnChoices[1]:
+            return computerSelection === turnChoices[2] ? "You lose! Scissors beats paper." : "You win! Paper beats rock."
+          break;
+          case turnChoices[2]:
+            return computerSelection === turnChoices[0] ? "You lose! Rock beats Scissors." : "You win! Scissors beats paper."
+          break;
           default:
-
+            return "Error: could not find outcome. Please re-enter selection."
         }
 
       }
