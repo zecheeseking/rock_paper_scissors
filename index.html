@@ -12,6 +12,8 @@
       <input class="font" data-key="2" type="submit" value="scissors"></input>
     </div>
     <div class="align font"><p id="answers"></p></div>
+    <ol class="align" id="history">
+    </ol>
   </body>
   <script>
     var turnChoices = ["rock", "paper", "scissors"]
@@ -32,28 +34,73 @@
 
     //game
     function playRound(playerSelection, computerSelection){
+
+      recordTurnHistory("Player selects: " + playerSelection, "playermove");
+      recordTurnHistory("CPU selects: " + computerSelection, "cpumove");
       if(playerSelection === computerSelection)
-        return "It's a draw!"
+      {
+        recordTurnHistory("It's a draw!", "roundresult");
+        return;
+      }
 
       switch(playerSelection){
         case turnChoices[0]:
-          return computerSelection === turnChoices[1] ? displayAnswer(playerScore, computerScore++) : displayAnswer(playerScore++, computerScore)
+          if(computerSelection === turnChoices[1])
+          {
+            recordTurnHistory("CPU wins the round!", "roundresult");
+            displayAnswer(playerScore, ++computerScore);
+          }
+          else
+          {
+            recordTurnHistory("Player wins the round!", "roundresult");
+            displayAnswer(++playerScore, computerScore);
+          }
         break;
         case turnChoices[1]:
-          return computerSelection === turnChoices[2] ? displayAnswer(playerScore, computerScore++) : displayAnswer(playerScore++, computerScore)
+          if(computerSelection === turnChoices[2])
+          {
+            recordTurnHistory("CPU wins the round!", "roundresult");
+            displayAnswer(playerScore, ++computerScore);
+          }
+          else
+          {
+            recordTurnHistory("Player wins the round!", "roundresult");
+            displayAnswer(++playerScore, computerScore);
+          }
         break;
         case turnChoices[2]:
-          return computerSelection === turnChoices[0] ? displayAnswer(playerScore, computerScore++) : displayAnswer(playerScore++, computerScore)
+          if(computerSelection === turnChoices[0])
+          {
+            recordTurnHistory("CPU wins the round!", "roundresult");
+            displayAnswer(playerScore, ++computerScore);
+          }else
+          {
+            recordTurnHistory("CPU wins the round!", "roundresult");
+            displayAnswer(++playerScore, computerScore);
+          }
         break;
         default:
-          return "Error: could not find outcome. Please re-enter selection."
+          return "ERROR";
       }
+    }
+
+    function recordTurnHistory(text, classToAdd)
+    {
+      var history = document.querySelector("#history");
+      if(!history) return;
+
+      let entry = document.createElement("li");
+      entry.textContent = text;
+      entry.classList.add(classToAdd);
+      history.appendChild(entry);
     }
 
     function displayAnswer(player, computer)
     {
       if(player === 5 || computer === 5)
+      {
         answers.textContent = (player === 5) ? "You win! Click button to restart.": "You lose! Click button to restart.";
+      }
       else
       {
         var answers = document.querySelector("p#answers");

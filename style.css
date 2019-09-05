@@ -10,6 +10,24 @@
   font-weight: 700;
 }
 
+.playermove{
+  color: green;
+}
+
+.cpumove{
+  color: red;
+}
+
+.roundresult{
+  color: black;
+  font-weight: 700;
+}
+
+li{
+  font-style: italic;
+  list-style: none;
+}
+
 #container{
   display:flex;
   justify-content: space-around;
