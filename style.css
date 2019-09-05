@@ -5,6 +5,7 @@
 }
 
 .font{
+  font-family: Arial, sans-serif;
   font-size: 13px;
   font-weight: 700;
 }
@@ -14,12 +15,16 @@
   justify-content: space-around;
 }
 
-#answer{
+#answers{
+  font-size: 27px;
   text-align: center;
+  display:flex;
+  justify-content: center;
 }
 
 input[type="submit"]{
   color: white;
+  width: 75px;
   line-height: 28px;
   padding: 10px;
   background-color: #7a7ae6;

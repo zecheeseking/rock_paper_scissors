@@ -11,9 +11,14 @@
       <input class="font" data-key="1" type="submit" value="paper"></input>
       <input class="font" data-key="2" type="submit" value="scissors"></input>
     </div>
+    <div class="align font"><p id="answers"></p></div>
   </body>
   <script>
     var turnChoices = ["rock", "paper", "scissors"]
+    let playerScore = 0;
+    let computerScore = 0;
+
+    displayAnswer(playerScore, computerScore);
 
     var buttons = document.querySelectorAll(`input[type="submit"]`);
     buttons.forEach(btn =>
@@ -21,7 +26,7 @@
         btn.addEventListener("click", function(e)
         {
           let choiceIndex =btn.getAttribute("data-key");
-          console.log(playRound(turnChoices[choiceIndex], computerTurn()));
+          playRound(turnChoices[choiceIndex], computerTurn());
         });
       });
 
@@ -32,18 +37,28 @@
 
       switch(playerSelection){
         case turnChoices[0]:
-          return computerSelection === turnChoices[1] ? "You lose! Paper beats Rock." : "You win! Rock beats scissors."
+          return computerSelection === turnChoices[1] ? displayAnswer(playerScore, computerScore++) : displayAnswer(playerScore++, computerScore)
         break;
         case turnChoices[1]:
-          return computerSelection === turnChoices[2] ? "You lose! Scissors beats paper." : "You win! Paper beats rock."
+          return computerSelection === turnChoices[2] ? displayAnswer(playerScore, computerScore++) : displayAnswer(playerScore++, computerScore)
         break;
         case turnChoices[2]:
-          return computerSelection === turnChoices[0] ? "You lose! Rock beats Scissors." : "You win! Scissors beats paper."
+          return computerSelection === turnChoices[0] ? displayAnswer(playerScore, computerScore++) : displayAnswer(playerScore++, computerScore)
         break;
         default:
           return "Error: could not find outcome. Please re-enter selection."
       }
+    }
 
+    function displayAnswer(player, computer)
+    {
+      if(player === 5 || computer === 5)
+        answers.textContent = (player === 5) ? "You win! Click button to restart.": "You lose! Click button to restart.";
+      else
+      {
+        var answers = document.querySelector("p#answers");
+        answers.textContent = "Player: " + player + ", CPU: " + computer;
+      }
     }
 
     function computerTurn(){
