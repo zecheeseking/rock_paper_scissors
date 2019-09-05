@@ -11,7 +11,7 @@
       <input class="font" data-key="1" type="submit" value="paper"></input>
       <input class="font" data-key="2" type="submit" value="scissors"></input>
     </div>
-    <div class="align font"><p id="answers"></p></div>
+    <div class="align font" id="answercontainer"><p id="answers"></p></div>
     <ol class="align" id="history">
     </ol>
   </body>
@@ -97,15 +97,43 @@
 
     function displayAnswer(player, computer)
     {
+      var answers = document.querySelector("p#answers");
       if(player === 5 || computer === 5)
       {
         answers.textContent = (player === 5) ? "You win! Click button to restart.": "You lose! Click button to restart.";
+        //disable buttons.
+        var btns = document.querySelectorAll("input");
+        btns.forEach(btn => btn.disabled = true);
+        //spawn restart button.
+        var answercontainer = document.querySelector("#answercontainer");
+        var resetBtn = document.createElement("input");
+        resetBtn.setAttribute("type","submit");
+        resetBtn.setAttribute("value","Reset");
+        resetBtn.classList.add("font");
+        resetBtn.addEventListener("click", reset);
+        resetBtn.style.cssText = "align-self:center";
+        answercontainer.appendChild(resetBtn);
       }
       else
       {
-        var answers = document.querySelector("p#answers");
         answers.textContent = "Player: " + player + ", CPU: " + computer;
       }
+    }
+
+    function reset()
+    {
+      playerScore = computerScore = 0;//reset scores
+      displayAnswer(playerScore, computerScore);
+
+      //clear history
+      var history = document.querySelector("#history");
+      while(history.firstChild)
+        history.removeChild(history.firstChild);
+
+      var btns = document.querySelectorAll("input");
+      btns.forEach(btn => btn.disabled = false);
+      var answercontainer = document.querySelector("#answercontainer");
+      answercontainer.removeChild(this);
     }
 
     function computerTurn(){
