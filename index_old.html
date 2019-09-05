@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Rock Paper Scissors</title>
+  </head>
+  <body>
+    <script>
+      var turnChoices = ["rock", "paper", "scissors"]
+
+      game()
+
+      function game(){
+        var roundCount = 1
+
+        while(roundCount <= 5)
+        {
+          console.log(roundCount)
+          console.log(playRound(prompt("Please choose either Rock, Paper or Scissors.").toLowerCase(), computerTurn()))
+          roundCount++
+        }
+      }
+
+      function playRound(playerSelection, computerSelection){
+        if(playerSelection === computerSelection)
+          return "It's a draw!"
+
+        switch(playerSelection){
+          case turnChoices[0]:
+            return computerSelection === turnChoices[1] ? "You lose! Paper beats Rock." : "You win! Rock beats scissors."
+          break;
+          case turnChoices[1]:
+            return computerSelection === turnChoices[2] ? "You lose! Scissors beats paper." : "You win! Paper beats rock."
+          break;
+          case turnChoices[2]:
+            return computerSelection === turnChoices[0] ? "You lose! Rock beats Scissors." : "You win! Scissors beats paper."
+          break;
+          default:
+            return "Error: could not find outcome. Please re-enter selection."
+        }
+
+      }
+
+      function computerTurn(){
+        return turnChoices[randomIndex()]
+      }
+
+      function randomIndex(){
+        return (Math.floor(Math.random() * 3))
+      }
+    </script>
+  </body>
+</html>

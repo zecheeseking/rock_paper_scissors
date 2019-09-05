@@ -3,51 +3,55 @@
   <head>
     <meta charset="utf-8">
     <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
   </head>
   <body>
-    <script>
-      var turnChoices = ["rock", "paper", "scissors"]
-
-      game()
-
-      function game(){
-        var roundCount = 1
-
-        while(roundCount <= 5)
-        {
-          console.log(roundCount)
-          console.log(playRound(prompt("Please choose either Rock, Paper or Scissors.").toLowerCase(), computerTurn()))
-          roundCount++
-        }
-      }
-
-      function playRound(playerSelection, computerSelection){
-        if(playerSelection === computerSelection)
-          return "It's a draw!"
-
-        switch(playerSelection){
-          case turnChoices[0]:
-            return computerSelection === turnChoices[1] ? "You lose! Paper beats Rock." : "You win! Rock beats scissors."
-          break;
-          case turnChoices[1]:
-            return computerSelection === turnChoices[2] ? "You lose! Scissors beats paper." : "You win! Paper beats rock."
-          break;
-          case turnChoices[2]:
-            return computerSelection === turnChoices[0] ? "You lose! Rock beats Scissors." : "You win! Scissors beats paper."
-          break;
-          default:
-            return "Error: could not find outcome. Please re-enter selection."
-        }
-
-      }
-
-      function computerTurn(){
-        return turnChoices[randomIndex()]
-      }
-
-      function randomIndex(){
-        return (Math.floor(Math.random() * 3))
-      }
-    </script>
+    <div class="align" id="container">
+      <input class="font" data-key="0" type="submit" value="rock"></input>
+      <input class="font" data-key="1" type="submit" value="paper"></input>
+      <input class="font" data-key="2" type="submit" value="scissors"></input>
+    </div>
   </body>
+  <script>
+    var turnChoices = ["rock", "paper", "scissors"]
+
+    var buttons = document.querySelectorAll(`input[type="submit"]`);
+    buttons.forEach(btn =>
+      {
+        btn.addEventListener("click", function(e)
+        {
+          let choiceIndex =btn.getAttribute("data-key");
+          console.log(playRound(turnChoices[choiceIndex], computerTurn()));
+        });
+      });
+
+    //game
+    function playRound(playerSelection, computerSelection){
+      if(playerSelection === computerSelection)
+        return "It's a draw!"
+
+      switch(playerSelection){
+        case turnChoices[0]:
+          return computerSelection === turnChoices[1] ? "You lose! Paper beats Rock." : "You win! Rock beats scissors."
+        break;
+        case turnChoices[1]:
+          return computerSelection === turnChoices[2] ? "You lose! Scissors beats paper." : "You win! Paper beats rock."
+        break;
+        case turnChoices[2]:
+          return computerSelection === turnChoices[0] ? "You lose! Rock beats Scissors." : "You win! Scissors beats paper."
+        break;
+        default:
+          return "Error: could not find outcome. Please re-enter selection."
+      }
+
+    }
+
+    function computerTurn(){
+      return turnChoices[randomIndex()]
+    }
+
+    function randomIndex(){
+      return (Math.floor(Math.random() * 3))
+    }
+  </script>
 </html>
